@@ -3,11 +3,52 @@
   <head>
     <title>Learning AngularJS with Django</title>
 
-    <!-- Required JS files -->
+    {% load staticfiles %}
+
+    <!-- css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- JS -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src="{% static 'js/controllers.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
   </head>
 
-  <body ng-app>
+  <body ng-app="app">
+    {% verbatim %}
     <h1>Welcome!</h1>
+    <div ng-controller="InfoController">
+      <div ng-controller="ChildController">
+	<p>
+	  {{ info.name }} is parent of {{ info.childName }}
+	</p>
+	<p>
+	  Parent Name: <input type='text' ng-model='info.name'>
+	</p>
+      </div>
+      <div>
+	<p>
+	  {{ info.name }} is parent of {{ info.childName }}
+	</p>
+	<p> 
+	  Child Name: <input type='text' ng-model='info.childName'>
+	</p>
+      </div>
+    </div>
+
+    <p ng-controller="SumController">
+      <select ng-model="newValue" ng-options="n for n in [1, 2, 3]"></select>
+      <input type="button" value="Add" ng-click="add()">
+      The sum fo {{ values }} is {{ sum }}
+    </p>
+
+    <div ng-controller="EscapeController">
+      <input type="text" ng-model="message">
+      is bound to
+      <strong ng-bind="message"></strong>
+      <br>
+      Press <code>esc</code> to clear it!
+    </div>
+    {% endverbatim %}
   </body>
 </html>
